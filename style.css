@@ -1,0 +1,414 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.screen { display: block; }
+.hidden { display: none !important; }
+
+h1 { font-size: 1.75rem; margin: 0 0 0.5rem; }
+h2 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+.lede, .results-lede { font-size: 1.05rem; color: #333; }
+
+.privacy {
+  background: #eef7ec;
+  border: 1px solid #cae3c4;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  margin: 1.5rem 0;
+}
+
+fieldset.mode-select {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+fieldset.mode-select legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+fieldset.mode-select label {
+  display: block;
+  padding: 0.4rem 0;
+  cursor: pointer;
+}
+fieldset.mode-select input[type="radio"] { margin-right: 0.5rem; }
+
+button.primary, button.secondary {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+button.primary {
+  background: #2a6df4;
+  color: white;
+  border: none;
+}
+button.primary:hover { background: #1f5ad9; }
+button.primary:disabled {
+  background: #aac0e8;
+  cursor: not-allowed;
+}
+button.secondary {
+  background: white;
+  color: #2a6df4;
+  border: 1px solid #2a6df4;
+}
+button.secondary:hover { background: #f0f5ff; }
+button.secondary:disabled {
+  border-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.footnote {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 1.5rem;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.progress { font-weight: 600; }
+.dim-tag {
+  background: #eef0f7;
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  color: #444;
+}
+.question-text {
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  line-height: 1.45;
+}
+.question-text code {
+  background: #f3f3f3;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.95em;
+}
+
+.options label {
+  display: block;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: white;
+  transition: background 0.1s, border-color 0.1s;
+}
+.options label:hover { background: #f0f5ff; }
+.options input[type="radio"] { margin-right: 0.6rem; }
+.options label.selected {
+  border-color: #2a6df4;
+  background: #eef3ff;
+}
+
+.free-input {
+  width: 100%;
+  min-height: 110px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+.free-input:focus { outline: 2px solid #2a6df4; outline-offset: -1px; }
+
+.scoring-rubric {
+  background: #fdfae8;
+  border-left: 3px solid #d4b800;
+  padding: 0.6rem 0.8rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.45;
+}
+.scoring-rubric strong { color: #6a4d00; }
+
+.live-score {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  background: #eef0f7;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  color: #444;
+  font-weight: 600;
+}
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+.summary-pill {
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+#results-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.dim-result {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+.dim-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.dim-name { font-weight: 600; }
+.dim-tier-tag {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.4rem;
+}
+.dim-level {
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.level-None { background: #fcd9d9; color: #8a1c1c; }
+.level-Aware { background: #fff0c0; color: #6a4d00; }
+.level-Working { background: #d4e9ff; color: #1f4d8a; }
+.level-Strong { background: #d4f4d0; color: #2a6a1c; }
+.dim-anchor {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+.dim-score-detail {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.3rem;
+}
+
+.funnel-cta {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.funnel-cta p { margin: 0.4rem 0 0; }
+.funnel-cta a { color: #2a6df4; }
+.funnel-cta-soft {
+  background: transparent;
+  padding: 0.75rem 0;
+  border-top: 1px solid #eee;
+  color: #555;
+  border-radius: 0;
+}
+.funnel-cta-strong {
+  background: #fff7e8;
+  border: 1px solid #f0d090;
+  color: #4a3a00;
+}
+.funnel-cta-strong strong { color: #4a3a00; }
+
+.resume-banner {
+  background: #eef3ff;
+  border: 1px solid #b8cdf5;
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+}
+.resume-banner .resume-detail {
+  margin: 0.4rem 0 0.8rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.resume-actions button { padding: 0.5rem 1rem; font-size: 0.9rem; }
+
+.drill-toggle,
+.syllabus-toggle {
+  margin-top: 0.6rem;
+  margin-right: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  background: white;
+  color: #2a6df4;
+  border: 1px solid #cdd9ec;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+.drill-toggle:hover,
+.syllabus-toggle:hover { background: #f5f8ff; border-color: #2a6df4; }
+
+.syllabus-toggle {
+  background: #eef3ff;
+  border-color: #b8cdf5;
+  color: #1f5ad9;
+  font-weight: 600;
+}
+.syllabus-toggle:hover { background: #dde9ff; border-color: #2a6df4; }
+
+.syllabus-panel {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  background: #f7faff;
+  border: 1px solid #dde7f7;
+}
+.syllabus-section {
+  margin: 0.75rem 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed #dde7f7;
+}
+.syllabus-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0;
+}
+.syllabus-heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #1f5ad9;
+  margin: 0 0 0.4rem;
+}
+.syllabus-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
+}
+.syllabus-title a { color: #2a6df4; text-decoration: none; }
+.syllabus-title a:hover { text-decoration: underline; }
+.syllabus-duration {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+.syllabus-summary,
+.syllabus-outcome,
+.syllabus-followup {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #333;
+  margin: 0.4rem 0;
+}
+.syllabus-outcome {
+  background: #fdfae8;
+  border-left: 3px solid #d4b800;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 3px 3px 0;
+}
+.syllabus-followup {
+  background: #f0f0f0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.88rem;
+}
+.syllabus-steps {
+  margin: 0.5rem 0 0.5rem 0;
+  padding-left: 1.5rem;
+}
+.syllabus-steps li {
+  margin: 0.4rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.drill-panel {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #ddd;
+}
+.drill-question {
+  margin: 0.75rem 0;
+  padding: 0.6rem 0.8rem;
+  background: #fafbfd;
+  border-left: 3px solid #ddd;
+  border-radius: 0 3px 3px 0;
+  font-size: 0.9rem;
+}
+.drill-stem { margin-bottom: 0.4rem; line-height: 1.45; }
+.drill-score {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.drill-correct {
+  color: #2a6a1c;
+  margin: 0.25rem 0;
+}
+.drill-incorrect {
+  color: #8a1c1c;
+  margin: 0.25rem 0;
+}
+.drill-user-text {
+  background: #f0f5ff;
+  border-radius: 3px;
+  padding: 0.4rem 0.6rem;
+  margin: 0.4rem 0;
+  white-space: pre-wrap;
+}
+.drill-rubric {
+  font-size: 0.85rem;
+  color: #555;
+  font-style: normal;
+  margin-top: 0.4rem;
+}
+
+#error pre {
+  background: #f3f3f3;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}

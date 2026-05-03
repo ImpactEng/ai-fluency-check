@@ -1,0 +1,9 @@
+# License
+
+This project is dual-licensed.
+
+**Code** — source files (HTML, CSS, JavaScript, Python, configuration), tests, and CI/automation: MIT License. See [LICENSE-CODE](LICENSE-CODE).
+
+**Content** — authored Markdown files (README, rubric, question bank, syllabus, history) and the question-bank JSON: Creative Commons Attribution 4.0 International (CC-BY 4.0). See [LICENSE-CONTENT](LICENSE-CONTENT).
+
+Attribution: impacteng.com.au.
