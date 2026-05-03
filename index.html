@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI fluency check (prototype)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>AI fluency check</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
         <label><input type="radio" name="mode" value="deep"> <strong>Deep</strong>: 27 questions, ~12 minutes. Sharper signal per dimension; can reach Working or Strong.</label>
       </fieldset>
       <button id="start-btn" class="primary">Start</button>
-      <p class="footnote">Prototype build. Question bank not yet finalised. Free-text scoring uses keyword matching for now (the optional in-browser LLM follow-up that gives richer scoring is build-order step 3, not yet implemented).</p>
+      <p class="footnote">Free-text scoring uses keyword matching against an inline rubric. The rubric is shown to you so you can self-score.</p>
     </section>
 
     <section id="quiz" class="screen hidden">
@@ -43,7 +44,7 @@
 
     <section id="results" class="screen hidden">
       <h1>Your AI fluency profile</h1>
-      <p class="results-lede">Per-dimension snapshot. Each anchor sentence describes what <em>Strong</em> looks like on that dimension. Full syllabus tracks (Read / Try / Tool / Next phase) land in a later iteration.</p>
+      <p class="results-lede">Per-dimension snapshot. Each anchor sentence describes what <em>Strong</em> looks like on that dimension. Where authored, a syllabus track (Read / Try / Tool / Next phase) is available behind the "Show suggested next steps" toggle on each card.</p>
       <div id="summary" class="summary"></div>
       <div id="funnel-cta" class="funnel-cta funnel-cta-soft" role="region" aria-label="Funnel handoff"></div>
       <div id="results-grid"></div>
@@ -52,8 +53,8 @@
 
     <section id="error" class="screen hidden">
       <h1>Could not load questions</h1>
-      <p>The prototype fetches <code>questions.json</code> over HTTP. Browsers block <code>fetch()</code> from <code>file://</code> URLs.</p>
-      <p>Run a static server from this directory and reload:</p>
+      <p>You are likely opening this from a <code>file://</code> URL. Browsers block <code>fetch()</code> from <code>file://</code> URLs, and this page fetches <code>questions.json</code> over HTTP.</p>
+      <p>Reload from a hosted URL, or run a local static server from this directory and reload:</p>
       <pre><code>python -m http.server 8000</code></pre>
       <p>Then visit <code>http://localhost:8000</code>.</p>
       <p id="error-detail" class="footnote"></p>
