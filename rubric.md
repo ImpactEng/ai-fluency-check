@@ -1,4 +1,4 @@
-# Rubric: AI fluency check
+# Rubric: AI Fluency Check
 
 Defines the assessment dimensions, the scoring model, and how each dimension maps to a syllabus track in the output.
 
@@ -43,7 +43,7 @@ The dimension's raw score (sum of its question scores) is mapped to a level:
 
 | Level | Label | Raw-score band (out of 4, for 2 questions per dimension) |
 |---|---|---|
-| 0 | None | 0 |
+| 0 | Unfamiliar | 0 |
 | 1 | Aware | 1–2 |
 | 2 | Working | 3 |
 | 3 | Strong | 4 |

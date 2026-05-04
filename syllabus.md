@@ -1,4 +1,4 @@
-# Syllabus: AI fluency check
+# Syllabus: AI Fluency Check
 
 Per-dimension learning tracks. Each track lands the user at "Strong" on its dimension via four small, concrete steps. Sized so a motivated DevOps / SRE / Cloud engineer can complete one track in a single working session (~2-3 hours of focused effort, including the Read).
 

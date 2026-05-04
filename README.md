@@ -1,4 +1,4 @@
-# AI fluency check
+# AI Fluency Check
 
 A free, browser-based self-assessment for DevOps, SRE, and Cloud engineers who want a clear-eyed view of where they stand on AI fundamentals — and a tailored next step for closing the gaps.
 
@@ -6,7 +6,7 @@ A free, browser-based self-assessment for DevOps, SRE, and Cloud engineers who w
 
 ## What it is
 
-Eleven dimensions, ranging from foundational (transformers, prompt engineering, RAG, MCP, cloud LLM integration, structured outputs) through to production engineering (LLMOps, agent design, cloud-native AI deployment, AI safety and security, evaluation and quality). Two modes: **Quick** (~5 minutes, 11 questions) for a rough sketch; **Deep** (~12 minutes, 27 questions) for a fuller signal. Every dimension reports your level (None / Aware / Working / Strong) and, where authored, a syllabus track with one thing to read, one thing to try, one tool to install, and a curated next-phase pointer.
+Eleven dimensions, ranging from foundational (transformers, prompt engineering, RAG, MCP, cloud LLM integration, structured outputs) through to production engineering (LLMOps, agent design, cloud-native AI deployment, AI safety and security, evaluation and quality). Two modes: **Quick** (~5 minutes, 11 questions) for a rough sketch; **Deep** (~12 minutes, 27 questions) for a fuller signal. Every dimension reports your level (Unfamiliar / Aware / Working / Strong) and, where authored, a syllabus track with one thing to read, one thing to try, one tool to install, and a curated next-phase pointer.
 
 ## Privacy
 

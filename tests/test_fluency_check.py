@@ -1,4 +1,4 @@
-"""Guards against drift in the AI fluency check assessment artifacts.
+"""Guards against drift in the AI Fluency Check assessment artifacts.
 
 Three classes of regression are caught here:
 

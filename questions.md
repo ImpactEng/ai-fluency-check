@@ -1,4 +1,4 @@
-# Question bank: AI fluency check
+# Question bank: AI Fluency Check
 
 27 questions, 2-3 per dimension, drawn from [rubric.md](rubric.md). Multiple choice unless marked "Free text". Correct option marked with **✓**.
 

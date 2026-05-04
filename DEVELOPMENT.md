@@ -1,6 +1,6 @@
-# AI fluency check: developer guide
+# AI Fluency Check: developer guide
 
-Notes for running and developing the AI fluency check locally. The app is a static, no-build, no-backend implementation in vanilla HTML/CSS/JS. Open it in a browser and it runs.
+Notes for running and developing the AI Fluency Check locally. The app is a static, no-build, no-backend implementation in vanilla HTML/CSS/JS. Open it in a browser and it runs.
 
 ## Run it
 
@@ -18,10 +18,10 @@ You **cannot** double-click `index.html`. The app fetches `questions.json` over 
 ## What's wired
 
 - Three screens: landing → quiz → results.
-- Quick (11 questions) and Deep (27 questions) modes. The selector is on the landing screen. Quick signals only None or Aware levels (1 question per dimension); Deep can reach Working or Strong.
+- Quick (11 questions) and Deep (27 questions) modes. The selector is on the landing screen. Quick signals only Unfamiliar or Aware levels (1 question per dimension); Deep can reach Working or Strong.
 - One-question-per-screen flow with Back/Next navigation. Progress indicator (`Question N of M`).
 - Multiple-choice questions render as radio-button options. Free-text questions render as a textarea with the inline scoring rubric visible and a live keyword-match estimate readout.
-- Per-dimension scoring (0/2 for MC, 0/1/2 for free-text via case-insensitive AND-of-OR keyword groups), mapped to None / Aware / Working / Strong levels per the rubric in [`rubric.md`](rubric.md).
+- Per-dimension scoring (0/2 for MC, 0/1/2 for free-text via case-insensitive AND-of-OR keyword groups), mapped to Unfamiliar / Aware / Working / Strong levels per the rubric in [`rubric.md`](rubric.md).
 - Results screen: summary pills (count of dimensions at each level), dynamic funnel CTA (strong if 3+ advanced dimensions are Aware-or-below, soft otherwise), 11 per-dimension cards with the rubric's Anchor sentence and a "Show details" drill-down per card.
 - **Save progress** to localStorage automatically after every answer change. On page reload, a banner offers to resume the saved session (mode + question index + answers preserved). Cleared on completion or restart.
 - **Drill-down per dimension**: each Results card has a Show details button. Expanded, it shows each question in that dimension, the user's answer, the correct answer (for MC) or scoring rubric (for free-text), and the score.
