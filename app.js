@@ -216,7 +216,10 @@ function renderQuestion() {
     }
   }
 
-  document.getElementById('back-btn').disabled = state.currentIndex === 0;
+  document.getElementById('back-btn').classList.toggle('hidden', state.currentIndex === 0);
+  const pct = ((state.currentIndex + 1) / state.questions.length) * 100;
+  const progressBar = document.getElementById('progress-bar');
+  if (progressBar) progressBar.style.width = `${pct}%`;
   const nextBtn = document.getElementById('next-btn');
   nextBtn.disabled = !state.answers[q.id] ||
     (q.type === 'free' && (!state.answers[q.id].value || state.answers[q.id].value.trim().length === 0));
@@ -264,23 +267,23 @@ function back() {
 
 function dimensionLevel(score, questionCount) {
   if (questionCount === 1) {
-    return score === 0 ? 'None' : 'Aware';
+    return score === 0 ? 'Unfamiliar' : 'Aware';
   }
   if (questionCount === 2) {
-    if (score === 0) return 'None';
+    if (score === 0) return 'Unfamiliar';
     if (score <= 2) return 'Aware';
     if (score === 3) return 'Working';
     return 'Strong';
   }
   if (questionCount === 3) {
-    if (score === 0) return 'None';
+    if (score === 0) return 'Unfamiliar';
     if (score <= 3) return 'Aware';
     if (score <= 5) return 'Working';
     return 'Strong';
   }
   // unexpected count, fall back
   const ratio = score / (questionCount * 2);
-  if (ratio === 0) return 'None';
+  if (ratio === 0) return 'Unfamiliar';
   if (ratio < 0.5) return 'Aware';
   if (ratio < 0.85) return 'Working';
   return 'Strong';
@@ -300,6 +303,10 @@ function renderResults() {
     dimScores[q.dimension].max += 2;
     dimScores[q.dimension].questions.push({ q, ans });
   }
+
+  // Quick-mode note: only visible when state.mode === 'quick'
+  const noteEl = document.getElementById('quick-mode-note');
+  if (noteEl) noteEl.classList.toggle('hidden', state.mode !== 'quick');
 
   // Summary pills
   const summary = document.getElementById('summary');
@@ -522,7 +529,7 @@ function renderSyllabus(panel, syllabus) {
       ol.className = 'syllabus-steps';
       for (const step of section.steps) {
         const li = document.createElement('li');
-        li.textContent = step;
+        li.innerHTML = formatRichText(step);
         ol.appendChild(li);
       }
       block.appendChild(ol);
@@ -531,21 +538,21 @@ function renderSyllabus(panel, syllabus) {
     if (section.summary) {
       const p = document.createElement('p');
       p.className = 'syllabus-summary';
-      p.textContent = section.summary;
+      p.innerHTML = formatRichText(section.summary);
       block.appendChild(p);
     }
 
     if (section.outcome) {
       const out = document.createElement('p');
       out.className = 'syllabus-outcome';
-      out.innerHTML = `<em>You should leave with:</em> ${escapeHtml(section.outcome)}`;
+      out.innerHTML = `<em>You should leave with:</em> ${formatRichText(section.outcome)}`;
       block.appendChild(out);
     }
 
     if (section.power_user_followup) {
       const fu = document.createElement('p');
       fu.className = 'syllabus-followup';
-      fu.innerHTML = `<em>Power-user follow-up:</em> ${escapeHtml(section.power_user_followup)}`;
+      fu.innerHTML = `<em>Power-user follow-up:</em> ${formatRichText(section.power_user_followup)}`;
       block.appendChild(fu);
     }
 
@@ -563,6 +570,27 @@ function escapeHtml(s) {
     .replace(/'/g, '&#39;');
 }
 
+// Renders trusted-but-text content (syllabus body strings from questions.json) with:
+//   - HTML entities escaped first, so any unexpected markup stays inert
+//   - http(s) URLs auto-linked to open in a new tab
+//   - inline `backtick` spans wrapped in <code>
+// Order matters: escapeHtml first, then operate only on the escaped string. The regex
+// is anchored on https?:// so javascript:, data:, vbscript:, file: cannot match.
+function formatRichText(s) {
+  if (s == null) return '';
+  let out = escapeHtml(s);
+  out = out.replace(/https?:\/\/[^\s<>"]+/g, (url) => {
+    let trailing = '';
+    while (url.length > 0 && /[,.;:!?]/.test(url[url.length - 1])) {
+      trailing = url[url.length - 1] + trailing;
+      url = url.slice(0, -1);
+    }
+    return `<a href="${url}" target="_blank" rel="noopener">${url}</a>${trailing}`;
+  });
+  out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
+  return out;
+}
+
 function renderFunnelCTA(dimScores) {
   const ctaContainer = document.getElementById('funnel-cta');
   if (!ctaContainer) return;
@@ -571,11 +599,11 @@ function renderFunnelCTA(dimScores) {
     const ds = dimScores[id];
     if (!ds || ds.count === 0) return false;
     const level = dimensionLevel(ds.score, ds.count);
-    return level === 'None' || level === 'Aware';
+    return level === 'Unfamiliar' || level === 'Aware';
   }).length;
 
   ctaContainer.innerHTML = '';
-  if (lowAdvancedCount >= 3) {
+  if (state.mode === 'deep' && lowAdvancedCount >= 3) {
     ctaContainer.className = 'funnel-cta funnel-cta-strong';
     const heading = document.createElement('strong');
     heading.textContent = 'Your team likely has org-level gaps too.';
@@ -640,6 +668,15 @@ document.getElementById('start-btn').addEventListener('click', startQuiz);
 document.getElementById('next-btn').addEventListener('click', next);
 document.getElementById('back-btn').addEventListener('click', back);
 document.getElementById('restart-btn').addEventListener('click', restart);
+const runDeepLink = document.getElementById('run-deep-link');
+if (runDeepLink) {
+  runDeepLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    restart();
+    const deepRadio = document.querySelector('input[name="mode"][value="deep"]');
+    if (deepRadio) deepRadio.checked = true;
+  });
+}
 
 // Disable Start until questions are loaded
 const startBtn = document.getElementById('start-btn');
