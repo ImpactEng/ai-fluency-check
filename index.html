@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>AI fluency check</title>
+  <title>AI Fluency Check</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main id="app">
     <section id="landing" class="screen">
-      <h1>AI fluency check</h1>
-      <p class="lede">A personal AI-knowledge diagnostic for DevOps, SRE, and Cloud engineers. Take a short quiz, see where you sit on 11 dimensions, and walk away with the anchors of a tailored syllabus to close your gaps.</p>
+      <h1>AI Fluency Check</h1>
+      <p class="lede">A personal AI-knowledge diagnostic for DevOps, SRE, and Cloud engineers. 11 dimensions across foundational and advanced tiers. Pick the 5-minute Quick set or the 12-minute Deep set. Walk away with a tailored syllabus for your gaps.</p>
       <p class="privacy"><strong>Runs entirely in your browser.</strong> No data leaves your machine.</p>
       <div id="resume-banner" class="resume-banner hidden" role="region" aria-label="Resume saved session">
         <strong>You have a saved session.</strong>
@@ -23,7 +23,7 @@
       </div>
       <fieldset class="mode-select">
         <legend>How long do you have?</legend>
-        <label><input type="radio" name="mode" value="quick" checked> <strong>Quick</strong>: 11 questions, ~5 minutes. One core question per dimension. Signals only None or Aware levels.</label>
+        <label><input type="radio" name="mode" value="quick" checked> <strong>Quick</strong>: 11 questions, ~5 minutes. One core question per dimension. Signals only Unfamiliar or Aware levels.</label>
         <label><input type="radio" name="mode" value="deep"> <strong>Deep</strong>: 27 questions, ~12 minutes. Sharper signal per dimension; can reach Working or Strong.</label>
       </fieldset>
       <button id="start-btn" class="primary">Start</button>
@@ -35,6 +35,7 @@
         <span id="progress" class="progress">0 / 0</span>
         <span id="dim-tag" class="dim-tag"></span>
       </header>
+      <div class="progress-bar-wrap"><div id="progress-bar" class="progress-bar" style="width:0%"></div></div>
       <div id="question-container" aria-live="polite" aria-atomic="false"></div>
       <div class="quiz-nav">
         <button id="back-btn" class="secondary">Back</button>
@@ -45,6 +46,8 @@
     <section id="results" class="screen hidden">
       <h1>Your AI fluency profile</h1>
       <p class="results-lede">Per-dimension snapshot. Each anchor sentence describes what <em>Strong</em> looks like on that dimension. Where authored, a syllabus track (Read / Try / Tool / Next phase) is available behind the "Show suggested next steps" toggle on each card.</p>
+      <div id="quick-mode-note" class="quick-mode-note hidden"><strong>Quick mode</strong>: signals reach only Unfamiliar or Aware. <a href="#" id="run-deep-link">Run Deep mode</a> (~12 min, 27 questions) to reach Working or Strong levels.</div>
+      <p class="summary-label">Across your 11 dimensions:</p>
       <div id="summary" class="summary"></div>
       <div id="funnel-cta" class="funnel-cta funnel-cta-soft" role="region" aria-label="Funnel handoff"></div>
       <div id="results-grid"></div>
