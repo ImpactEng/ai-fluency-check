@@ -1,5 +1,9 @@
 # AI Fluency Check
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-impacteng.com.au-2a6df4?style=flat-square)](https://impacteng.com.au/tools/ai-fluency-check/)
+[![Code: MIT](https://img.shields.io/badge/Code-MIT-green?style=flat-square)](LICENSE-CODE)
+[![Content: CC BY 4.0](https://img.shields.io/badge/Content-CC%20BY%204.0-blue?style=flat-square)](LICENSE-CONTENT)
+
 A free, browser-based self-assessment for DevOps, SRE, and Cloud engineers who want a clear-eyed view of where they stand on AI fundamentals — and a tailored next step for closing the gaps.
 
 **Live at**: <https://impacteng.com.au/tools/ai-fluency-check/>
