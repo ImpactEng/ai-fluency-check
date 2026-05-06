@@ -4,7 +4,7 @@
 [![Code: MIT](https://img.shields.io/badge/Code-MIT-green?style=flat-square)](LICENSE-CODE)
 [![Content: CC BY 4.0](https://img.shields.io/badge/Content-CC%20BY%204.0-blue?style=flat-square)](LICENSE-CONTENT)
 
-A free, browser-based self-assessment for DevOps, SRE, and Cloud engineers who want a clear-eyed view of where they stand on AI fundamentals — and a tailored next step for closing the gaps.
+A free, browser-based self-assessment for DevOps, SRE, and Cloud engineers who want a clear-eyed view of where they stand on AI fundamentals, and a tailored next step for closing the gaps.
 
 **Live at**: <https://impacteng.com.au/tools/ai-fluency-check/>
 
@@ -26,4 +26,4 @@ Dual-licensed: code under MIT, content under CC-BY 4.0. See [LICENSE](LICENSE).
 
 ## Contributing
 
-Contributions welcome — particularly for the nine syllabus tracks not yet authored (F1, F3, F5, F6, A1, A2, A3, A4, A5). See [syllabus.md](syllabus.md) for the format and the F2 + F4 examples.
+Contributions welcome, particularly for the nine syllabus tracks not yet authored (F1, F3, F5, F6, A1, A2, A3, A4, A5). See [syllabus.md](syllabus.md) for the format and the F2 + F4 examples.

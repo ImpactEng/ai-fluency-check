@@ -8,25 +8,25 @@ Tracks are added incrementally; F2 and F4 are the first two. The Results screen 
 
 Each track has the same five fields:
 
-1. **Anchor** — what Strong looks like (one sentence; canonical copy lives in [`rubric.md`](rubric.md) and [`questions.json`](questions.json)).
-2. **Read** — one canonical doc, post, or spec, with a link and a sentence on what to focus on. ~5-15 minutes.
-3. **Try** — one concrete exercise sized 30-60 minutes. Self-contained. No production access required. Designed so the user has something to point at when they finish.
-4. **Tool** — one tool to install or sandbox to use during the Try. Free-tier where possible. Optional power-user follow-up after the basics feel normal.
-5. **Next phase** — a curated pointer to deeper material (follow-on talk, paper, exercise, or adjacent topic) so motivated users have somewhere to go.
+1. **Anchor**: what Strong looks like (one sentence; canonical copy lives in [`rubric.md`](rubric.md) and [`questions.json`](questions.json)).
+2. **Read**: one canonical doc, post, or spec, with a link and a sentence on what to focus on. ~5-15 minutes.
+3. **Try**: one concrete exercise sized 30-60 minutes. Self-contained. No production access required. Designed so the user has something to point at when they finish.
+4. **Tool**: one tool to install or sandbox to use during the Try. Free-tier where possible. Optional power-user follow-up after the basics feel normal.
+5. **Next phase**: a curated pointer to deeper material (follow-on talk, paper, exercise, or adjacent topic) so motivated users have somewhere to go.
 
-**Authored so far**: F2 and F4. The other nine tracks (F1, F3, F5, F6, A1, A2, A3, A4, A5) land progressively. Contributions welcome — see the F2 and F4 tracks below for the format.
+**Authored so far**: F2 and F4. The other nine tracks (F1, F3, F5, F6, A1, A2, A3, A4, A5) land progressively. Contributions welcome, see the F2 and F4 tracks below for the format.
 
 ---
 
-## F2 — LLM mechanics
+## F2 · LLM mechanics
 
 **Anchor**: You can explain how a transformer processes a prompt, what tokens and context windows mean for cost and capability, and predict where a model is likely to be confidently wrong.
 
 ### Read
 
-[Jay Alammar — *The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/) (2018, still the best visual explanation). 20-25 minutes if you take it slowly. Focus on the self-attention sections; the architecture details after are nice-to-have, but the *intuition* about how a transformer mixes information across positions is the load-bearing concept.
+[Jay Alammar, *The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/) (2018, still the best visual explanation). 20-25 minutes if you take it slowly. Focus on the self-attention sections; the architecture details after are nice-to-have, but the *intuition* about how a transformer mixes information across positions is the load-bearing concept.
 
-Then [Anthropic — Glossary: tokens, context windows, inference](https://docs.claude.com/en/docs/about-claude/glossary). 5 minutes. Practical, current. Confirms: tokens are not characters, the context window is shared between input and output, and output tokens cost 3-5× more than input tokens on most providers.
+Then [Anthropic, Glossary: tokens, context windows, inference](https://docs.claude.com/en/docs/about-claude/glossary). 5 minutes. Practical, current. Confirms: tokens are not characters, the context window is shared between input and output, and output tokens cost 3-5× more than input tokens on most providers.
 
 ### Try
 
@@ -49,19 +49,19 @@ Power-user follow-up once `llm` feels normal: install [Ollama](https://ollama.co
 
 Adjacent topics worth pursuing once the mechanics feel intuitive: prompt-engineering techniques that work *with* the mechanics, and cost-per-request reasoning that follows from token economics.
 
-External next reads if motivated: [Karpathy — *Intro to Large Language Models*](https://www.youtube.com/watch?v=zjkBMFhNj_g) (1hr YouTube talk; the canonical engineer-friendly deep-dive). [Anthropic — *Prompt engineering overview*](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview).
+External next reads if motivated: [Karpathy, *Intro to Large Language Models*](https://www.youtube.com/watch?v=zjkBMFhNj_g) (1hr YouTube talk; the canonical engineer-friendly deep-dive). [Anthropic, *Prompt engineering overview*](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview).
 
 ---
 
-## F4 — Agentic AI and MCP
+## F4 · Agentic AI and MCP
 
 **Anchor**: You can articulate what makes a system agentic beyond a single LLM call, and you understand MCP's role as the open standard for connecting LLMs to tools and data.
 
 ### Read
 
-[Anthropic — *Building effective agents*](https://www.anthropic.com/research/building-effective-agents) (Schluntz and Zhang, December 2024). The clearest, most-grounded distinction between *workflows* (LLM steps wired into deterministic pipelines) and *agents* (LLM-driven loops with tool choice and observation). 12 minutes. Read sections "Augmented LLM" through "When to use agents (and when not to)" carefully; skim the worked patterns.
+[Anthropic, *Building effective agents*](https://www.anthropic.com/research/building-effective-agents) (Schluntz and Zhang, December 2024). The clearest, most-grounded distinction between *workflows* (LLM steps wired into deterministic pipelines) and *agents* (LLM-driven loops with tool choice and observation). 12 minutes. Read sections "Augmented LLM" through "When to use agents (and when not to)" carefully; skim the worked patterns.
 
-Then [Model Context Protocol — Introduction](https://modelcontextprotocol.io/introduction). The official spec entry point. 5 minutes. Focus on the host / client / server architecture and the four primitives: tools, resources, prompts, sampling. By the end you should be able to draw the trust boundary on a whiteboard.
+Then [Model Context Protocol, Introduction](https://modelcontextprotocol.io/introduction). The official spec entry point. 5 minutes. Focus on the host / client / server architecture and the four primitives: tools, resources, prompts, sampling. By the end you should be able to draw the trust boundary on a whiteboard.
 
 ### Try
 
