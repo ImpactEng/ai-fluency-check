@@ -27,7 +27,7 @@ Free-text items include an inline scoring rubric.
 ### Q1.1 [F1] (MC) — Core
 Which best describes "Narrow AI"?
 
-- a) AI that operates only in restricted geographic regions.
+- a) AI that has been deployed in production for under one year.
 - b) AI designed and trained for a specific task or domain. ✓
 - c) AI that runs on edge devices with constrained bandwidth.
 - d) AI with fewer than one billion parameters.
@@ -78,7 +78,7 @@ The main reason RAG was developed:
 - a) To reduce inference cost by caching responses.
 - b) To let an LLM answer questions about information not in its training data, without retraining the model. ✓
 - c) To make the model run faster on smaller GPUs.
-- d) To eliminate hallucinations entirely (it doesn't).
+- d) To eliminate hallucinations entirely.
 
 Source: blog §"RAG".
 
@@ -101,7 +101,7 @@ What primarily distinguishes an "AI agent" from a single LLM call?
 
 - a) The model is larger.
 - b) The system can plan, choose tools, take actions, and observe results in a loop. ✓
-- c) It uses a vector database.
+- c) It always uses chain-of-thought prompting.
 - d) It runs on dedicated hardware.
 
 Source: blog §"Agentic AI".
@@ -121,7 +121,7 @@ Which best describes MCP's status in 2026?
 
 - a) An Anthropic-only experiment with limited adoption.
 - b) An open standard governed by the Linux Foundation's Agentic AI Foundation, supported by Anthropic, OpenAI, and Google. ✓
-- c) A deprecated protocol replaced by REST.
+- c) An OpenAPI-based spec maintained by IETF.
 - d) A proprietary AWS-only specification.
 
 Source: Anthropic's donation of MCP to the Linux Foundation (December 2025); 2026 ecosystem coverage.
@@ -144,7 +144,7 @@ Source: blog §"Integration methods" + AWS Bedrock VPC endpoint awareness.
 Cursor, Claude Code, Cline, Aider, and Windsurf are best described as:
 
 - a) IDEs and agentic CLIs that include LLM-powered code assistants tightly integrated with the editor or terminal. ✓
-- b) Cloud-hosted CI runners.
+- b) Code formatters and linters that integrate with the editor.
 - c) Static analysis tools.
 - d) Vector database GUIs.
 
@@ -154,7 +154,7 @@ Source: blog §"Integration methods" (tooling); 2026 coding-agent landscape.
 Devin and Replit Agent differ from Cursor and Cline in that:
 
 - a) They use larger underlying models.
-- b) They run autonomously in cloud sandboxes; you assign a task and they plan, write, test, and submit a PR without you driving each step. Cursor and Cline are IDE-integrated assistants you drive interactively. ✓
+- b) They run autonomously in cloud sandboxes; you assign a task and they plan, write, test, and submit a PR. Cursor and Cline are interactive IDE assistants you drive. ✓
 - c) They are open source while Cursor and Cline are proprietary.
 - d) They only support JavaScript.
 
@@ -169,7 +169,7 @@ A reasonable LLMOps observability baseline tracks at minimum:
 
 - a) Just request count.
 - b) Request count, latency, token usage in/out, cost, and per-prompt success / quality signals. ✓
-- c) Just GPU temperature.
+- c) Latency, cost, and request count, but not token usage, which is provider-internal.
 - d) Just the system prompt content.
 
 Source: LLMOps observability practice (LangSmith / Helicone / Langfuse).
@@ -188,7 +188,7 @@ Source: LLMOps cost-optimisation practice (caching, batching, fallback routing).
 Proxy-based observability (e.g. Helicone) and SDK-based observability (e.g. LangSmith, Langfuse) differ primarily in:
 
 - a) Which programming languages they support.
-- b) Where the instrumentation lives. A proxy intercepts at the HTTP layer with zero code change but limited per-call detail. An SDK instruments inside your application with richer per-call detail at the cost of code changes. ✓
+- b) Where the instrumentation lives: a proxy intercepts at the HTTP layer; an SDK instruments inside the application. ✓
 - c) Whether they cost money.
 - d) Which LLM providers they support.
 
@@ -214,7 +214,7 @@ Source: Agent-framework documentation (LangChain, CrewAI, Microsoft Agent Framew
 - a) The current chat context window.
 - b) Persisted, retrievable state across sessions (e.g. a vector store of past interactions, key-value facts, summary memory). ✓
 - c) The model's training data.
-- d) GPU VRAM allocation.
+- d) Few-shot examples in the system prompt.
 
 Source: Agent memory taxonomy (short-term, long-term, episodic) — agent-framework documentation.
 
@@ -226,7 +226,7 @@ Source: Agent memory taxonomy (short-term, long-term, episodic) — agent-framew
 You're deploying a RAG service with bursty traffic and want to minimise idle cost. The most natural fit on AWS is:
 
 - a) An always-on EC2 instance.
-- b) Lambda or Fargate (scale-to-zero) for the orchestration tier, with a managed retrieval/embedding backend (e.g. OpenSearch, Bedrock). ✓
+- b) Lambda or Fargate for the orchestration tier (scale-to-zero), with a managed retrieval backend like OpenSearch or Bedrock. ✓
 - c) Bare metal in an on-prem rack.
 - d) S3 only.
 
@@ -286,14 +286,14 @@ RAGAS (or an equivalent eval framework) is primarily used to measure:
 - a) GPU utilisation during inference.
 - b) Answer faithfulness, context relevance/recall, and similar quality metrics for a RAG system. ✓
 - c) Network latency between regions.
-- d) Token compression ratios.
+- d) Embedding-model perplexity.
 
 Source: RAGAS documentation; RAG-quality metrics literature.
 
 ### Q10.2 [A5] (MC) — Applied
 You've made a "small change" to your RAG pipeline (e.g. swapped the embedding model). The single most important thing to do before shipping:
 
-- a) Trust your gut and ship it.
+- a) Run the new pipeline against last week's user traffic and compare manually.
 - b) Run your evaluation set against the new pipeline and compare quality regression vs the old one. ✓
 - c) Increase the temperature to compensate.
 - d) Add more system-prompt instructions.
@@ -303,7 +303,7 @@ Source: Regression-testing discipline for RAG pipelines (eval-set-before-ship).
 ### Q10.3 [A5] (MC) — Applied
 You need to (i) measure your RAG system's answer faithfulness, (ii) write Pytest-style unit tests for prompts, and (iii) gate deploys in CI with prompt regression checks. The most natural 2026 toolchain:
 
-- a) Use one tool for everything; pick the most expensive.
+- a) DeepEval for (i), RAGAS for (ii), Inspect AI for (iii).
 - b) RAGAS for (i), DeepEval for (ii), Promptfoo for (iii). They compose. ✓
 - c) Build all three from scratch.
 - d) Skip evaluation; ship and watch errors.
@@ -318,7 +318,7 @@ Source: 2026 LLM-evaluation tooling comparisons (Atlan, Confident AI).
 Which best describes the difference between "JSON mode" and "structured outputs" as offered by major LLM providers in 2026?
 
 - a) JSON mode is for chat; structured outputs is for the chat completions API.
-- b) JSON mode guarantees valid JSON syntax. Structured outputs guarantees the response matches a provided JSON Schema (correct field names, correct types, all required fields) via constrained decoding. ✓
+- b) JSON mode guarantees valid JSON syntax; structured outputs guarantees the response matches a provided JSON Schema via constrained decoding. ✓
 - c) They are different names for the same feature.
 - d) JSON mode is open source; structured outputs is proprietary.
 

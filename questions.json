@@ -123,7 +123,7 @@
       "difficulty": "Core",
       "text": "Which best describes \"Narrow AI\"?",
       "options": [
-        "AI that operates only in restricted geographic regions.",
+        "AI that has been deployed in production for under one year.",
         "AI designed and trained for a specific task or domain.",
         "AI that runs on edge devices with constrained bandwidth.",
         "AI with fewer than one billion parameters."
@@ -188,7 +188,7 @@
         "To reduce inference cost by caching responses.",
         "To let an LLM answer questions about information not in its training data, without retraining the model.",
         "To make the model run faster on smaller GPUs.",
-        "To eliminate hallucinations entirely (it doesn't)."
+        "To eliminate hallucinations entirely."
       ],
       "correct": 1
     },
@@ -219,7 +219,7 @@
       "options": [
         "The model is larger.",
         "The system can plan, choose tools, take actions, and observe results in a loop.",
-        "It uses a vector database.",
+        "It always uses chain-of-thought prompting.",
         "It runs on dedicated hardware."
       ],
       "correct": 1
@@ -251,7 +251,7 @@
       "options": [
         "An Anthropic-only experiment with limited adoption.",
         "An open standard governed by the Linux Foundation's Agentic AI Foundation, supported by Anthropic, OpenAI, and Google.",
-        "A deprecated protocol replaced by REST.",
+        "An OpenAPI-based spec maintained by IETF.",
         "A proprietary AWS-only specification."
       ],
       "correct": 1
@@ -282,7 +282,7 @@
       "text": "Cursor, Claude Code, Cline, Aider, and Windsurf are best described as:",
       "options": [
         "IDEs and agentic CLIs that include LLM-powered code assistants tightly integrated with the editor or terminal.",
-        "Cloud-hosted CI runners.",
+        "Code formatters and linters that integrate with the editor.",
         "Static analysis tools.",
         "Vector database GUIs."
       ],
@@ -298,7 +298,7 @@
       "text": "Devin and Replit Agent differ from Cursor and Cline in that:",
       "options": [
         "They use larger underlying models.",
-        "They run autonomously in cloud sandboxes; you assign a task and they plan, write, test, and submit a PR without you driving each step. Cursor and Cline are IDE-integrated assistants you drive interactively.",
+        "They run autonomously in cloud sandboxes; you assign a task and they plan, write, test, and submit a PR. Cursor and Cline are interactive IDE assistants you drive.",
         "They are open source while Cursor and Cline are proprietary.",
         "They only support JavaScript."
       ],
@@ -314,7 +314,7 @@
       "text": "Which best describes the difference between 'JSON mode' and 'structured outputs' as offered by major LLM providers in 2026?",
       "options": [
         "JSON mode is for chat; structured outputs is for the chat completions API.",
-        "JSON mode guarantees valid JSON syntax. Structured outputs guarantees the response matches a provided JSON Schema (correct field names, correct types, all required fields) via constrained decoding.",
+        "JSON mode guarantees valid JSON syntax; structured outputs guarantees the response matches a provided JSON Schema via constrained decoding.",
         "They are different names for the same feature.",
         "JSON mode is open source; structured outputs is proprietary."
       ],
@@ -347,7 +347,7 @@
       "options": [
         "Just request count.",
         "Request count, latency, token usage in/out, cost, and per-prompt success / quality signals.",
-        "Just GPU temperature.",
+        "Latency, cost, and request count, but not token usage, which is provider-internal.",
         "Just the system prompt content."
       ],
       "correct": 1
@@ -363,7 +363,7 @@
       "scoring_rubric": "2 if the answer names a concrete technique (prompt or response caching, semantic caching, retrieval-result caching, smaller-model fallback for trivial queries, request batching, model quantisation/distillation, output token caps, system-prompt compression) AND offers a one-line 'why it works' rationale. 1 if it names a technique but the reasoning is hand-wavy. 0 otherwise.",
       "keyword_groups": [
         ["cach", "batch", "quanti", "distill", "fallback", "smaller model", "smaller-model", "compress", "summari", "max token", "output token", "token cap", "limit", "truncate", "prompt cache"],
-        ["because", "since", "reduce", "lower", "fewer", "less", "save", "cheaper", "faster", "avoid", "skip", "shorter", "smaller", "trivial", "common"]
+        ["reduce", "lower", "fewer", "less", "save", "cheaper", "faster", "avoid", "skip", "shorter", "smaller", "trivial", "common"]
       ]
     },
     {
@@ -376,7 +376,7 @@
       "text": "Proxy-based observability (e.g. Helicone) and SDK-based observability (e.g. LangSmith, Langfuse) differ primarily in:",
       "options": [
         "Which programming languages they support.",
-        "Where the instrumentation lives. A proxy intercepts at the HTTP layer with zero code change but limited per-call detail. An SDK instruments inside your application with richer per-call detail at the cost of code changes.",
+        "Where the instrumentation lives: a proxy intercepts at the HTTP layer; an SDK instruments inside the application.",
         "Whether they cost money.",
         "Which LLM providers they support."
       ],
@@ -410,7 +410,7 @@
         "The current chat context window.",
         "Persisted, retrievable state across sessions (e.g. a vector store of past interactions, key-value facts, summary memory).",
         "The model's training data.",
-        "GPU VRAM allocation."
+        "Few-shot examples in the system prompt."
       ],
       "correct": 1
     },
@@ -424,7 +424,7 @@
       "text": "You're deploying a RAG service with bursty traffic and want to minimise idle cost. The most natural fit on AWS is:",
       "options": [
         "An always-on EC2 instance.",
-        "Lambda or Fargate (scale-to-zero) for the orchestration tier, with a managed retrieval/embedding backend (e.g. OpenSearch, Bedrock).",
+        "Lambda or Fargate for the orchestration tier (scale-to-zero), with a managed retrieval backend like OpenSearch or Bedrock.",
         "Bare metal in an on-prem rack.",
         "S3 only."
       ],
@@ -504,7 +504,7 @@
         "GPU utilisation during inference.",
         "Answer faithfulness, context relevance/recall, and similar quality metrics for a RAG system.",
         "Network latency between regions.",
-        "Token compression ratios."
+        "Embedding-model perplexity."
       ],
       "correct": 1
     },
@@ -517,7 +517,7 @@
       "difficulty": "Applied",
       "text": "You've made a 'small change' to your RAG pipeline (e.g. swapped the embedding model). The single most important thing to do before shipping:",
       "options": [
-        "Trust your gut and ship it.",
+        "Run the new pipeline against last week's user traffic and compare manually.",
         "Run your evaluation set against the new pipeline and compare quality regression vs the old one.",
         "Increase the temperature to compensate.",
         "Add more system-prompt instructions."
@@ -533,7 +533,7 @@
       "difficulty": "Applied",
       "text": "You need to (i) measure your RAG system's answer faithfulness, (ii) write Pytest-style unit tests for prompts, and (iii) gate deploys in CI with prompt regression checks. The most natural 2026 toolchain:",
       "options": [
-        "Use one tool for everything; pick the most expensive.",
+        "DeepEval for (i), RAGAS for (ii), Inspect AI for (iii).",
         "RAGAS for (i), DeepEval for (ii), Promptfoo for (iii). They compose.",
         "Build all three from scratch.",
         "Skip evaluation; ship and watch errors."
