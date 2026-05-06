@@ -162,6 +162,30 @@ Source: 2026 coding-agent landscape (Codegen, Artificial Analysis, MorphLLM benc
 
 ---
 
+## F6 — Structured outputs and function calling
+
+### Q11.1 [F6] (MC) — Core
+Which best describes the difference between "JSON mode" and "structured outputs" as offered by major LLM providers in 2026?
+
+- a) JSON mode is for chat; structured outputs is for the chat completions API.
+- b) JSON mode guarantees valid JSON syntax; structured outputs guarantees the response matches a provided JSON Schema via constrained decoding. ✓
+- c) They are different names for the same feature.
+- d) JSON mode is open source; structured outputs is proprietary.
+
+Source: 2026 production studies showing schema-enforced parse failures below 0.1% vs 8–15% for unconstrained JSON mode.
+
+### Q11.2 [F6] (MC) — Applied
+You're building an agent that extracts customer-account fields from a free-text email and then also calls an `update_customer` function. Best practice in 2026:
+
+- a) Tell the model "respond in JSON" and parse with regex.
+- b) Use structured outputs with a JSON Schema for the extraction step, then function calling for the `update_customer` action; combine them in the agent loop. ✓
+- c) Generate freeform text and ask the model to retry until parseable.
+- d) Use a separate fine-tuned model for each task.
+
+Source: 2026 structured-output and function-calling pattern guides.
+
+---
+
 ## A1 — LLMOps
 
 ### Q6.1 [A1] (MC) — Core
@@ -309,30 +333,6 @@ You need to (i) measure your RAG system's answer faithfulness, (ii) write Pytest
 - d) Skip evaluation; ship and watch errors.
 
 Source: 2026 LLM-evaluation tooling comparisons (Atlan, Confident AI).
-
----
-
-## F6 — Structured outputs and function calling
-
-### Q11.1 [F6] (MC) — Core
-Which best describes the difference between "JSON mode" and "structured outputs" as offered by major LLM providers in 2026?
-
-- a) JSON mode is for chat; structured outputs is for the chat completions API.
-- b) JSON mode guarantees valid JSON syntax; structured outputs guarantees the response matches a provided JSON Schema via constrained decoding. ✓
-- c) They are different names for the same feature.
-- d) JSON mode is open source; structured outputs is proprietary.
-
-Source: 2026 production studies showing schema-enforced parse failures below 0.1% vs 8–15% for unconstrained JSON mode.
-
-### Q11.2 [F6] (MC) — Applied
-You're building an agent that extracts customer-account fields from a free-text email and then also calls an `update_customer` function. Best practice in 2026:
-
-- a) Tell the model "respond in JSON" and parse with regex.
-- b) Use structured outputs with a JSON Schema for the extraction step, then function calling for the `update_customer` action; combine them in the agent loop. ✓
-- c) Generate freeform text and ask the model to retry until parseable.
-- d) Use a separate fine-tuned model for each task.
-
-Source: 2026 structured-output and function-calling pattern guides.
 
 ---
 
