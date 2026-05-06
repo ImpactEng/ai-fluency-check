@@ -41,12 +41,12 @@ Multiple-choice items award 0 or 2 only (binary). Free-text items support 0/1/2 
 
 The dimension's raw score (sum of its question scores) is mapped to a level:
 
-| Level | Label | Raw-score band (out of 4, for 2 questions per dimension) |
-|---|---|---|
-| 0 | Unfamiliar | 0 |
-| 1 | Aware | 1–2 |
-| 2 | Working | 3 |
-| 3 | Strong | 4 |
+| Level | Label | Out of 4 (2-question dimensions) | Out of 6 (3-question dimensions) |
+|---|---|---|---|
+| 0 | Unfamiliar | 0 | 0 |
+| 1 | Aware | 1–2 | 1–3 |
+| 2 | Working | 3 | 4–5 |
+| 3 | Strong | 4 | 6 |
 
 "Aware" = recognises the term; "Working" = can apply with guidance; "Strong" = can make architecture calls and teach others.
 
