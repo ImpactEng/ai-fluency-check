@@ -53,6 +53,43 @@ External next reads if motivated: [Karpathy, *Intro to Large Language Models*](h
 
 ---
 
+## F3 · Prompt engineering and RAG basics
+
+**Anchor**: You can choose between zero-shot, few-shot, and RAG for a problem, and you know when retrieval helps versus when it just adds latency.
+
+### Read
+
+[Anthropic, *Prompt engineering overview*](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview). The current vendor-neutral techniques (be clear, use examples, give context, chain-of-thought) explained concretely with worked examples. 10 to 15 minutes. Focus on "Be clear and direct", "Use examples (multishot prompting)", and "Let Claude think". Skip the prompt-templates section; that is product-specific.
+
+Then [Pinecone, *What is Retrieval Augmented Generation (RAG)?*](https://www.pinecone.io/learn/retrieval-augmented-generation/). 5 minutes. Vendor-flavoured but conceptually accurate. The load-bearing idea: RAG lets the model answer questions about information it was not trained on, without retraining. If you want the original source, the 2020 paper from Lewis et al. is at <https://arxiv.org/abs/2005.11401>; the intro and section 2 are the parts worth reading.
+
+### Try
+
+**Same question, three prompting strategies.** ~30 minutes. Build intuition for when retrieval pays off versus when a tight prompt is enough.
+
+1. Pick a knowledge corpus you control: six markdown files from a project runbook, or your team's internal docs exported to plain text. Drop them in `~/scratch/rag-test/docs/`.
+2. Write six questions: three where the answer is in the docs (the model would have to retrieve to know) and three where the answer is general knowledge (the model already knows).
+3. **Zero-shot**: open Claude or ChatGPT in a fresh chat. Ask each of the six questions cold, no extra context. Record: correct, partially correct, or hallucinated.
+4. **Few-shot**: prepend three Q-A examples (from the docs) to each prompt. Same six questions. Record again.
+5. **RAG**: install the embeddings plugin (`pip install llm llm-sentence-transformers`). Index the docs: `llm embed-multi rag-test --files ~/scratch/rag-test/docs/ '*.md' --model sentence-transformers/all-MiniLM-L6-v2 --store`. For each question, retrieve top-3 chunks and pass them as context: `llm similar rag-test -c "YOUR QUESTION" -n 3 | llm "Answer this question using the context above: YOUR QUESTION"`.
+6. Tabulate the three columns. Note where RAG wins (private-knowledge questions), where few-shot wins (format or style guidance), where zero-shot is fine (general knowledge), and the latency cost of the RAG path versus zero-shot.
+
+What you should leave with: an intuitive map of when to reach for RAG. RAG earns its place for private or recent knowledge; for general questions it adds latency and a new failure mode (bad retrieval surfaces wrong chunks). For format and style consistency, few-shot beats both.
+
+### Tool
+
+[`llm` with embeddings](https://llm.datasette.io/en/stable/embeddings/) by Simon Willison. Same `llm` you may have installed for F2; the `embed`, `embed-multi`, and `similar` subcommands are built in. Pure-Python, SQLite-backed, runs entirely locally. The `llm-sentence-transformers` plugin gives you free CPU-only embeddings; the OpenAI or Voyage plugins give you cloud embeddings if you want them. No vector database to run, no separate service.
+
+Power-user follow-up once the basic embed flow feels normal: [Chroma](https://docs.trychroma.com/) (`pip install chromadb`). Adds persistent collections, metadata filtering, and is the most common entry-point vector DB in production RAG stacks. The same exercise on Chroma takes about 10 lines of Python and exposes you to the collection / metadata / where-filter shape you will see in Bedrock Knowledge Bases, Vertex AI Search, and Microsoft Foundry IQ.
+
+### Next phase
+
+Adjacent topics worth pursuing once zero-shot vs few-shot vs RAG feels intuitive: advanced prompting techniques (chain-of-thought, self-consistency, prompt chaining) and production-grade RAG (chunking strategies, hybrid retrieval, reranking, query rewriting).
+
+External next reads if motivated: [DAIR, *Prompt Engineering Guide*](https://www.promptingguide.ai/), still the most comprehensive open survey; pick the "Techniques" section and skim. [Anyscale, *Building RAG-based LLM Applications for Production*](https://www.anyscale.com/blog/a-comprehensive-guide-for-building-rag-based-llm-applications-part-1), long; covers chunking, eval, deployment, and costs.
+
+---
+
 ## F4 · Agentic AI and MCP
 
 **Anchor**: You can articulate what makes a system agentic beyond a single LLM call, and you understand MCP's role as the open standard for connecting LLMs to tools and data.
