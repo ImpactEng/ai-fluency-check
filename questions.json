@@ -163,7 +163,36 @@
     "A4": {
       "name": "AI safety and security",
       "tier": "advanced",
-      "anchor": "You harden public LLM endpoints against direct and indirect prompt injection, and you can name modern defenses (AgentDojo benchmark, CaMeL, AgentSys, firewall pattern)."
+      "anchor": "You harden public LLM endpoints against direct and indirect prompt injection, and you can name modern defenses (AgentDojo benchmark, CaMeL, AgentSys, firewall pattern).",
+      "syllabus": {
+        "read": {
+          "title": "Simon Willison — Prompt injection: what's the worst that can happen?",
+          "url": "https://simonwillison.net/2023/Apr/14/worst-that-can-happen/",
+          "summary": "10 to 15 minutes. The canonical articulation of the prompt-injection threat model (Simon coined the term). Focus on the indirect-injection examples; the direct-jailbreak narrative is well-understood but the indirect variant (untrusted content arriving via retrieved documents, fetched webpages, email bodies, or tool output) is where production systems actually fail. Then skim his ongoing prompt injection series (https://simonwillison.net/series/prompt-injection/) for the 2024 to 2026 evolution; pick one or two recent posts to see how the threat landscape has shifted. Then read OWASP's 'Top 10 for Large Language Model Applications' (https://owasp.org/www-project-top-10-for-large-language-model-applications/, 5 minutes). The practitioner's checklist. Focus on LLM01 (Prompt Injection) and LLM06 (Sensitive Information Disclosure); the categories map onto controls you would put on a production endpoint (rate limiting, output filtering, sandboxed tool execution)."
+        },
+        "try": {
+          "title": "Run a vulnerability scanner against an LLM and see what lands: build intuition for which prompt-injection families are real production risks today versus which are mitigated by the model itself.",
+          "duration_minutes": 30,
+          "steps": [
+            "Install garak (`pip install garak`). ~2 minutes. Garak is 'nmap for LLMs': it sends probe prompts from known attack families and checks for compromise indicators in the response.",
+            "Set the API key for your chosen model (`ANTHROPIC_API_KEY` or `OPENAI_API_KEY`). ~1 minute.",
+            "Run a focused probe set covering the families that map onto the rubric: `garak --model_type anthropic --model_name claude-sonnet-4-6 --probes promptinject,encoding,dan,latentinjection`. ~10 minutes runtime. Expect a few cents in API cost on standard credit.",
+            "Open the HTML report garak generates (in `~/.config/garak/garak_runs/`). Find the per-probe results: which probes scored 'compromise' and which were resisted by the model.",
+            "Pick the worst hit (highest compromise rate) and read the probe definition in garak's source on GitHub. Now you know exactly which family of attack actually lands against this generation of LLMs.",
+            "Tabulate: top 3 attack families that landed, top 3 that did not, and one defense you would put in production if you owned this endpoint (rate limiting, output filtering, sandboxed execution for tool calls, retrieval source allowlisting, etc.)."
+          ],
+          "outcome": "A concrete grasp of which prompt-injection families are real production risks today versus which are mitigated by the model itself. Most defensive narratives assume 'all attacks land equally'; running garak shows you the actual hit-rate distribution. The OWASP categories you read above start to feel concrete because you have seen which ones are critical right now."
+        },
+        "tool": {
+          "title": "Garak (LLM vulnerability scanner)",
+          "url": "https://github.com/leondz/garak",
+          "summary": "Open-source LLM vulnerability scanner. `pip install garak`. No infrastructure required. ~50 probe families covering prompt injection, jailbreaks, encoding bypasses, training-data extraction, and harmful-content generation. Run against OpenAI, Anthropic, or local Ollama models; reports include per-probe hit rates and example exchanges so you can read exactly what got through. Maintained by NVIDIA's red-team group, vendor-neutral output.",
+          "power_user_followup": "Step up to AgentDojo (https://agentdojo.spylab.ai/) for the formal benchmark angle once garak's probe results feel familiar. Paper-grade evaluation of agent systems against a curated suite of indirect-injection attacks across realistic tool surfaces (email, banking, travel). Heavier setup than garak (requires running a small agent harness) but the right next layer for evaluating tool-using agents rather than raw LLM endpoints. The paper (https://arxiv.org/abs/2406.13352) is short and worth the read once the benchmark feels worth running."
+        },
+        "next_phase": {
+          "summary": "Adjacent topics worth pursuing once LLM security feels intuitive: production safety architecture (multi-layer defense, the LLM firewall pattern), red-teaming methodology for LLM systems, continuous adversarial testing in CI (eval-style but for safety regressions), and the close-relative A5 dimension (Evaluation and quality, which covers regression testing for both correctness and safety). External next reads if motivated: Anthropic's research index (https://www.anthropic.com/research) for ongoing posts on agent safety, capability evaluations, and responsible scaling. NeMo Guardrails (https://docs.nvidia.com/nemo/guardrails/) as one industrial defense framework if you want to wire a policy layer in front of an endpoint. Also Simon Willison's prompt-injection series stays current; subscribe to his RSS if you want the canonical narrative as the threat evolves."
+        }
+      }
     },
     "A5": {
       "name": "Evaluation and quality",
