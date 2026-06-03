@@ -125,3 +125,39 @@ Adjacent topics for deeper depth: MCP server design (registry, custom servers, g
 
 If you score Strong on this dimension, the highest-leverage next move is to *write* an MCP server for an internal tool your team already uses (read-only kubectl, internal docs search, ticket-system query) and run it against Claude Code or Cursor for a week of real ops work.
 
+---
+
+## A1 · LLMOps
+
+**Anchor**: You instrument LLM systems with cost, latency, token, and quality telemetry, and you reach for the right tool (proxy vs SDK, e.g. Helicone vs LangSmith vs Langfuse) for the situation.
+
+### Read
+
+[Eugene Yan, *Patterns for Building LLM-Based Systems & Products*](https://eugeneyan.com/writing/llm-patterns/). Vendor-neutral, comprehensive. ~15 minutes if focused. Skim the introduction; concentrate on the **Eval**, **Caching**, and **Monitor** sections, which carry the LLMOps shape. The cost, latency, and quality signals you instrument map directly onto what Eugene catalogues there.
+
+Then [Langfuse, *What is LLM Observability?*](https://langfuse.com/docs). 5 minutes. Vendor-flavoured but accurate. Look at the dashboard screenshots; what they surface (cost per call, latency distribution, token in/out, trace tree, score breakdown) is the LLMOps baseline you should expect from any observability tool.
+
+### Try
+
+**Instrument 10 LLM calls and watch the cost, latency, and token breakdown materialise.** ~30 minutes. Build intuition for what observability gives you that plain logging does not.
+
+1. Spin up Langfuse locally with their published `docker compose up` recipe (see <https://langfuse.com/self-hosting/local>). ~5 minutes. The web UI lands on `http://localhost:3000` once the stack is healthy.
+2. In a Python REPL or a 20-line script: install `langfuse openai` (or `anthropic`), set `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` from the local UI's project settings, and wrap your model client with the Langfuse `@observe` decorator.
+3. Send 10 LLM calls with varied shapes: 5 short (~50 output tokens), 3 medium (~500 tokens), 2 long (~2000 tokens). Use prompts you genuinely care about (a runbook question, a code-review query, a summary, etc.).
+4. Open the Langfuse UI. Click through the 10 traces.
+5. Tabulate: median and p95 latency per category, total cost, tokens-in vs tokens-out ratio, the worst outlier (slowest, most expensive, longest), and which call category dominates the cost.
+6. Add one deliberately bad prompt (ambiguous or ungrammatical) plus a quality score via `langfuse.score()`. Refresh the dashboard and notice how a score field changes which traces stand out.
+
+What you should leave with: a concrete grasp of what observability gives you that `print()` does not. Per-call cost attribution catches expensive prompts you would not have flagged. The p95 latency view surfaces tail-latency outliers invisible in averages. Token in/out ratios change your prompt-budget intuition. Quality scores turn the dashboard from "what happened" into "what matters".
+
+### Tool
+
+[Langfuse, self-hosted via docker-compose](https://langfuse.com/self-hosting/local). Open source, runs entirely local, no signup. The stack is Postgres plus ClickHouse plus a Next.js app and comes up in one `docker compose up`. SDK available for Python and JavaScript with decorator and context-manager flavours. The instrumentation shape (a span tree, scores, prompts, tags) maps onto the same shape Langfuse Cloud serves at production scale, so the local exercise carries forward.
+
+Power-user follow-up once the SDK pattern feels normal: [Helicone](https://www.helicone.ai/) in proxy mode. A different instrumentation shape that intercepts at the HTTP layer instead of inside your code (change your OpenAI or Anthropic base URL, no SDK install). Run the same 10-call workload through Helicone and compare what each surface lets you see. That direct contrast is the proxy-versus-SDK trade-off from Q6.3 in muscle-memory form.
+
+### Next phase
+
+Adjacent topics worth pursuing once LLM observability feels normal: LLM evaluation and quality (the natural progression to A5), production cost optimisation (semantic caching, smaller-model fallback for trivial queries, request batching, output token caps), and distributed tracing for LLM systems via OpenTelemetry plus OpenLLMetry.
+
+External next reads if motivated: [Chip Huyen, *Building LLM applications for production*](https://huyenchip.com/2023/04/11/llm-engineering.html) for the broader systems framing (long; ~40 minutes; pick the "Operational considerations" sections). [Langfuse blog](https://langfuse.com/blog) for the eval-stack story and recent production patterns.
